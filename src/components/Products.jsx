@@ -9,15 +9,15 @@ const Products = () => {
   const dispatch = useDispatch();
   //const [products, getProducts] = useState([]);
 
-  const productsData=useSelector(state=>state.products)
-  const stringifiedProductsData=JSON.stringify(productsData)
-console.log(`from products component ${productsData.data}`)
+  const {data,loading,err}=useSelector((state)=>state.products)
+//const productsData=JSON.stringify(data)
+//console.log(typeof(data))
   useEffect(() => {
     dispatch(getProducts());
     // fetch("https://fakestoreapi.com/products")
     //   .then((data) => data.json())
     //   .then((result) => getProducts(result));
-  });
+  },[dispatch]);
 
   const addToCart = (product) => {
     // dispatch an add action
@@ -25,11 +25,18 @@ console.log(`from products component ${productsData.data}`)
     dispatch(add(product));
   };
 
+  if(loading){
+    return (<p>loading</p>)
+  }
+  if(err){
+    return (<p>Error</p>)
+  }
+
   return (
     <>
       <h1>Products Dashboard</h1>
       <div className="product-card-container">
-        {stringifiedProductsData.data.map((product) => {
+        {data.map((product) => {
           const { id, title, price, category, image, rating } = product;
           return (
             <div key={id} className="product-card">

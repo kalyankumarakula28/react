@@ -25,7 +25,7 @@ const Cart = () => {
               <p className="rating">{rating.rate}</p>
             </div>
             <button className="cart-btn" onClick={() => removeCart(product.id)}>
-              Remove Item{" "}
+              Remove Item
             </button>
           </div>
         );
