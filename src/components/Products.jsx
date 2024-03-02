@@ -9,9 +9,9 @@ const Products = () => {
   const dispatch = useDispatch();
   //const [products, getProducts] = useState([]);
 
-  const productsData=useSelector(state=>state.products)
-  const stringifiedProductsData=JSON.stringify(productsData)
-console.log(`from products component ${productsData.data}`)
+  const {data,status}=useSelector((state)=>state.products)
+//const productsData=JSON.stringify(data)
+//console.log(typeof(data))
   useEffect(() => {
     dispatch(getProducts());
     // fetch("https://fakestoreapi.com/products")
@@ -24,6 +24,13 @@ console.log(`from products component ${productsData.data}`)
 
     dispatch(add(product));
   };
+
+  if(status=='loading'){
+    return (<p>loading</p>)
+  }
+  if(status=='error'){
+    return (<p>Error</p>)
+  }
 
   return (
     <>
